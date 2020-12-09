@@ -1,10 +1,16 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'mobx-react';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 import App from './App';
+import store from './store'
+import 'antd/dist/antd.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider {...store}>
+    <ConfigProvider locale={zhCN}>
+      <App />
+    </ConfigProvider>
+  </Provider>,
   document.getElementById('root')
 );
