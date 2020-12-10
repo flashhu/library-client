@@ -38,8 +38,6 @@ class Auth {
                 throw new Forbbiden(errMsg)
             }
 
-            // console.log('decode: ', decode);
-
             // uid, scope
             ctx.auth = {
                 uid: decode.uid, 
