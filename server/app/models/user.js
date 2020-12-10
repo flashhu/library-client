@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const pool = require('../../core/db')
-const { ParameterException } = require('../../core/httpException')
+const { ParameterException, NotFound, AuthFailed } = require('../../core/httpException')
 const { prepareParm } = require('../../core/util')
 
 /**
@@ -13,11 +13,46 @@ const verifyUserId = async (id) => {
     if(!user.length) {
         return false;
     }else {
-        return true;
+        return user;
     }
 }
 
+/**
+ * 验证账号密码
+ * @param {*} param {id, passwd}
+ */
+const verifyAccount = async (param) => {
+    const user = await verifyUserId(param.id);
+    if(!user) {
+        throw new NotFound('账号不存在')
+    }
+    if(user[0].status !== 1) {
+        throw new AuthFailed('该账号当前不可用')
+    }
+    const correct = bcrypt.compareSync(param.passwd, user[0].passwd)
+    if (!correct) {
+        throw new AuthFailed('密码不正确')
+    }
+    return user[0]
+}
 
+/**
+ * 获取用户信息
+ * @param {*} id
+ */
+const getUserInfo = async (id) => {
+    const queryStr = 'CALL GET_USER_INFO_BY_ID(?)'
+    const info = await pool.query(queryStr, [id])
+    if(!info.length) {
+        throw new AuthFailed('该账号当前不可用')
+    }
+    return info[0][0]
+}
+
+/**
+ * 新增用户
+ * @param {*} user 
+ */
 const addUser = async (user) => {
     // 0. 验证学号唯一，班级/学院编号存在
     if (await verifyUserId(user.id)) {
@@ -67,5 +102,7 @@ const addUser = async (user) => {
 }
 
 module.exports = {
-    addUser
+    addUser,
+    verifyAccount,
+    getUserInfo
 }

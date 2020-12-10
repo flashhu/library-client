@@ -45,7 +45,7 @@ class TokenValidator extends LinValidator {
         this.account = [
             new Rule('isLength', '账号长度不符规则', { min: 1, max: 20 })
         ]
-        this.secret = [
+        this.passwd = [
             new Rule('isLength', '密码至少6位', { min: 6, max: 32 })
         ]
     }
