@@ -1,53 +1,153 @@
-### 洋葱模型
+# API 文档
 
-* 方便对后续中间件返回结果进行处理
+### 用户注册
 
-<img src="https://image-static.segmentfault.com/289/215/2892151181-5ab48de7b5013_articlex" alt="图示" style="zoom:50%;" />
+**请求URL**
 
+* `http://localhost:8080/v1/user/register`
 
+**请求方式**
 
-### 中间件为什么加`async`
+* POST
 
-* next() 本身返回的即为`Promise`
-* 中间件内部使用`await`，如不写`async`会报错
+**请求参数**
 
-* 加`async`, `await`保证洋葱模型，除最后一中间件外，`next()`前必须加`await`
+| 参数名   | 必选 | 类型   | 说明         |
+| -------- | ---- | ------ | ------------ |
+| id       | 是   | string | 用户学/工号  |
+| name     | 是   | string | 用户姓名     |
+| identity | 是   | int    | 身份编号     |
+| college  | 是   | int    | 所属学院编号 |
+| class    | 是   | int    | 所属班级编号 |
+| phone    | 否   | string | 手机号       |
+| email    | 否   | string | 邮箱         |
+| passwd   | 是   | string | 密码         |
 
-### 常见的四种传参方式
+**返回示例**
 
-1. header --> `ctx.request.header`
-2. body --> 使用`koa-bodyparser`，`ctx.request.body`
-3. url路径内 --> `ctx.params`
-4. url问号后 --> `ctx.request.query`
+```json
+{
+    "msg": "账号已存在",
+    "error_code": 10000,
+    "request": "POST /v1/user/register"
+}
+```
 
-### 以中间件的形式调用校验器（类）
+```json
+{
+    "msg": "所属班级/学院编码不存在",
+    "error_code": 10000,
+    "request": "POST /v1/user/register"
+}
+```
 
-* 仅在项目启动时，实例化1次 --> 全局只有1个
-*  各请求间不独立，易造成变量错乱
+```json
+{
+    "msg": "该身份类型不存在",
+    "error_code": 10000,
+    "request": "POST /v1/user/register"
+}
+```
 
-### `uid`通过`body`传递给服务端
+```json
+{
+    "msg": "ok",
+    "error_code": 0,
+    "request": "POST /v1/user/register"
+}
+```
 
-* 客户端可通过篡改`uid`获取别的用户数据，安全性低
-* 非权限问题
+### 用户登录
 
-### 缓存
+**请求URL**
 
-* 前端缓存解决性能最有效，存在条件限制
+* `http://localhost:8080/v1/token/`
 
-### 代码重构
+**请求方式**
 
-* 重复代码建议3次以上，再考虑重构
-* 注意考虑灵活性，业务逻辑会发生变化
+* POST
 
-### 易错
+**请求参数**
 
-* 出现 `Internal Server Error`, 可能是漏加`await`， 
-* 循环查询数据库，查询次数不可控，要避免
-* 使用`body`传递数字，实际为传递`JSON`，`JSON`可以识别为数字还是字符串，故取出时不需要装换类型
-* 通过`url`方式传递（例，`/article/1`，`?param=1`），不转型，为字符串
-* `Object`对象的`key`为字符串，注意转型
-* 如果导入出现`undefined`，检查是否出现循环导入
-* 出现循环导入，由模块导入，变为局部导入
-* `forEach `中别用 `async`, `await`
-* `axios`请求中有中文，会报错，需要编码，如`encodeURI`
+| 参数名  | 必选 | 类型   | 说明        |
+| ------- | ---- | ------ | ----------- |
+| account | 是   | string | 用户学/工号 |
+| passwd  | 是   | string | 密码        |
+
+**返回示例**
+
+```json
+{
+    "msg": "密码不正确",
+    "error_code": 10004,
+    "request": "POST /v1/token/"
+}
+```
+
+```json
+{
+    "msg": "账号不存在",
+    "error_code": 10000,
+    "request": "POST /v1/token/"
+}
+```
+
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIyMDE4MjEyMjEyNjc1Iiwic2NvcGUiOjgsImlhdCI6MTYwNzYxOTQ1MCwiZXhwIjoxNjEwMjExNDUwfQ.YcXxzEO0wLuut4MqTWnUS7jNd1XuJI2OA4jkZn9jO_Q",
+    "info": {
+        "name": "张三",
+        "college": "信息科学与工程学院",
+        "class": "计算机184",
+        "email": "",
+        "phone": "",
+        "authority": 0
+    }
+}
+```
+
+### 获取用户信息
+
+**简要描述**
+
+使用 Basic Auth 携带 Token，可应用于带 Token 自动登录的情况
+
+**请求URL**
+
+* `http://localhost:8080/v1/user/info`
+
+**请求方式**
+
+* GET
+
+**返回示例**
+
+```json
+{
+    "msg": "token不合法",
+    "error_code": 10006,
+    "request": "GET /v1/user/info"
+}
+```
+
+```json
+{
+    "msg": "token已过期",
+    "error_code": 10006,
+    "request": "GET /v1/user/info"
+}
+```
+
+```json
+{
+    "info": {
+        "name": "张三",
+        "college": "信息科学与工程学院",
+        "class": "计算机184",
+        "email": "",
+        "phone": "",
+        "authority": 0
+    }
+}
+```
 
