@@ -151,3 +151,93 @@
 }
 ```
 
+### 获取学院列表
+
+**请求URL**
+
+* `http://localhost:8080/v1/college/list`
+
+**请求方式**
+
+* GET
+
+**返回示例**
+
+```json
+{
+    "collegeList": [
+        {
+            "id": 1,
+            "name": "经济与管理学院"
+        },
+        {
+            "id": 2,
+            "name": "沈钧儒法学院"
+        },
+        {
+            "id": 3,
+            "name": "公共管理学院"
+        }
+    ]
+}
+```
+
+### 获取班级列表
+
+**请求URL**
+
+* `http://localhost:8080/v1/class/list`
+
+**请求方式**
+
+* GET
+
+**返回示例**
+
+```json
+{
+    "msg": [
+        "year字段是必填参数",
+        "id字段是必填参数"
+    ],
+    "error_code": 10000,
+    "request": "GET /v1/class/list"
+}
+```
+
+```json
+{
+    "msg": [
+        "id学院编码格式错误",
+        "year年份格式错误"
+    ],
+    "error_code": 10000,
+    "request": "GET /v1/class/list"
+}
+```
+
+```json
+{
+    "classList": [
+        {
+            "id": 1,
+            "college_id": 11,
+            "year": "2018",
+            "name": "计算机师范181"
+        },
+        {
+            "id": 2,
+            "college_id": 11,
+            "year": "2018",
+            "name": "计算机182"
+        },
+        {
+            "id": 3,
+            "college_id": 11,
+            "year": "2018",
+            "name": "计算机183"
+        }
+    ]
+}
+```
+

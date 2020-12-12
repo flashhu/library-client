@@ -31,10 +31,11 @@ class RegisterValidator extends LinValidator {
             new Rule('isInt', '身份编码格式错误', { min: 1 })
         ]
         this.college = [
-            new Rule('isInt', '身份编码格式错误', { min: 1 })
+            new Rule('isInt', '学院编码格式错误', { min: 1 })
         ]
         this.class = [
-            new Rule('isInt', '身份编码格式错误', { min: 1 })
+            new Rule('isOptional'),
+            new Rule('isInt', '班级编码格式错误', { min: 1 })
         ]
     }
 }
@@ -60,9 +61,28 @@ class NotEmptyValidator extends LinValidator {
     }
 }
 
+class ClassListValidator extends LinValidator {
+    constructor() {
+        super()
+        this.id = [
+            new Rule('isInt', '学院编码格式错误', { min: 1 })
+        ]
+        this.year = [
+            new Rule('isInt', '年份格式错误', { min: 1918, max: 3000 })
+        ]
+    }
+
+    validateId(vals) {
+        if (!vals.query.id) {
+            throw new Error('id字段是必填参数')
+        }
+    }
+}
+
 module.exports = {
     PositiveIntegerValidator,
     RegisterValidator,
     TokenValidator,
-    NotEmptyValidator
+    NotEmptyValidator,
+    ClassListValidator
 }
