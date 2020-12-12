@@ -12,10 +12,11 @@ class UserStore {
 
     async login(params) {
         const data = await post(API_USER_LOGIN, params);
+        console.log(data);
         if (data) {
             window.localStorage.setItem('token', data.token);
             runInAction(() => {
-                this.user = { name: params.name, role: data.role };
+                this.user = { data };
             })
             message.success('登录成功');
         }
