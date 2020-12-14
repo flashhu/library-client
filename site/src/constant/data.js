@@ -29,3 +29,23 @@ export const USER_MENU = [{
         path: '/history/reserve'
     }]
 }]
+
+export const SERACH_OPTIONS = [{
+    id: 'any',
+    name: '任意词'
+}, {
+    id: 'title',
+    name: '题名'
+}, {
+    id: 'author',
+    name: '责任者'
+}, {
+    id: 'theme',
+    name: '主题词'
+}, {
+    id: 'isbn',
+    name: 'ISBN'
+}, {
+    id: 'searchNum',
+    name: '索书号'
+}]
