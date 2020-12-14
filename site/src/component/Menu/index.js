@@ -8,7 +8,7 @@ function MainMenu() {
     const history = useHistory();
     
     return (
-        <Menu defaultSelectedKeys={[history.location.pathname || '/']} mode="inline">
+        <Menu selectedKeys={[history.location.pathname || '/']} mode="inline">
             {USER_MENU.map(item =>
                 item.children ?
                 <SubMenu key={item.path} icon={item.icon} title={item.name}>

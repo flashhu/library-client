@@ -38,12 +38,12 @@ function BaseLayout({ children }) {
                 <Menu />
             </Sider>
             <Layout className="site-layout">
-                <Content style={{ margin: '0 16px' }}>
+                <Content className="site-layout-background">
                     <ErrorBoundary>
                         {children}
                     </ErrorBoundary>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>©2020 Created by Group 7</Footer>
+                <Footer style={{ textAlign: 'center', color: '#586069' }}>©2020 Created by Group 7</Footer>
             </Layout>
         </Layout>
     )
