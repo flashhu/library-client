@@ -44,7 +44,7 @@ function Register() {
     useEffect(()=>{
         const getData = async () => {
             const data = await get(API_GET_COLLEGE_LIST);
-            setCollegeList(data.collegeList)
+            data && setCollegeList(data.collegeList)
         }
         if(identityId !== 1) getData()
     }, [identityId])
@@ -56,7 +56,7 @@ function Register() {
                 year: parseInt(account.current.state.value.substr(0, 4))
             }
             const data = await get(API_GET_CLASS_LIST, params);
-            setClassList(data.classList)
+            data && setClassList(data.classList)
         }
         if (account.current.state.value) {
             getData()
