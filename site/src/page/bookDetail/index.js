@@ -1,75 +1,12 @@
 import { useState } from 'react'
-import { Breadcrumb, Table, Button, Tag, Tooltip, message } from 'antd';
+import { Breadcrumb } from 'antd';
 import { useHistory } from 'react-router-dom'
-import { BOOK_DETAIL_TIME, BOOK_SPARE_LIST, BOOK_FULL_LIST, BOOK_STATUS_TYPE } from '@constant/mock/search'
-import { useUserStore } from '@hooks/useStore';
+import { BOOK_DETAIL_TIME } from '@constant/mock/search'
 import bookImg from '@assets/img/book.jpg'
+import BookLocation from './component/BookLocationTable'
 import './index.less'
 
 const eBookHref = 'http://www.sslibrary.com/reader/jpath/jpathreader?d=d81a3fb20a2b6c34f96a9de2773a7b19&ssid=13528630'
-
-function BookLocation({isAvailable}) {
-    const userStore = useUserStore();
-    const history = useHistory();
-
-    const columns = [
-        {
-            title: '索书号',
-            dataIndex: 'searcnNum',
-            key: 'searcnNum'
-        }, {
-            title: '条码号',
-            dataIndex: 'bookId',
-            key: 'bookId',
-            responsive: ['lg']
-        }, {
-            title: '馆藏地',
-            dataIndex: 'collectLocation',
-            key: 'collectLocation',
-        }, {
-            title: '书刊状态',
-            dataIndex: 'returnBookStatus',
-            key: 'returnBookStatus',
-            render: returnBookStatus => <Tag color={BOOK_STATUS_TYPE[returnBookStatus].color}>{BOOK_STATUS_TYPE[returnBookStatus].name}</Tag>
-        }, {
-            title: '定位信息',
-            dataIndex: 'bookLocation',
-            key: 'bookLocation',
-        }, {
-            title: '操作',
-            key: 'action',
-            responsive: ['md'],
-            render: (text, record) => (
-                <Tooltip placement="top" title={record.returnBookStatus === 0 ? '本书籍状态可借，不支持预约' : userStore.user ? '' : '请先登录系统'}>
-                    <Button 
-                        type="primary" 
-                        size="small" 
-                        disabled={record.returnBookStatus === 0 ? '0': ''}
-                        onClick={() => reserveBook(record)}
-                    >
-                        预约
-                    </Button>
-                </Tooltip>
-            ),
-        },
-    ];
-
-    const reserveBook = (val) => {
-        if(!userStore.user) {
-            history.push('/login');
-        } else {
-            console.log('正在预约的图书信息', val);
-            message.warn('正在预约中...');
-            setTimeout(() => {
-                message.success('预约成功，请及时关注系统消息或手机短信!');
-            }, 1000);
-        }
-    }
-
-    return (
-        <Table rowKey="id" columns={columns} dataSource={isAvailable ? BOOK_SPARE_LIST : BOOK_FULL_LIST} />
-    )
-}
 
 function BookDetail() {
     const [isAvailable, setIsAvailable] = useState(false)

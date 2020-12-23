@@ -44,7 +44,7 @@ function SearchPage() {
                     )}
                 </Select>
                 <RangePicker picker="year" style={{ width: 200 }} />
-                <Search className="search-bar" defaultValue={keyword} placeholder="搜索图书..." onSearch={onSearch} enterButton />
+                <Search className="search-bar" defaultValue={keyword ? '时间简史': ''} placeholder="搜索图书..." onSearch={onSearch} enterButton />
             </Input.Group>
             {
                 keyword ? <>
