@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 import { Layout, Tooltip } from 'antd'
 import { useHistory } from 'react-router-dom'
@@ -10,6 +10,7 @@ import './index.less'
 const { Content, Footer, Sider } = Layout;
 
 function BaseLayout({ children }) {
+    const [collapsed, setCollapsed] = useState(false)
     const history = useHistory()
     const userStore = useUserStore()
 
@@ -29,12 +30,19 @@ function BaseLayout({ children }) {
         }
     }, [userStore])
 
+    const changeCollapse = (collapsed) => {
+        setCollapsed(collapsed)
+    }
+
     return (
         <Layout style={{ minHeight: '100vh' }} className="layout">
-            <Sider theme="light">
-                <Tooltip classNmae="menu-tip" placement="right" title={userStore.user ? '点击登出': '点击登录'}>
-                    <div className="menu-logo" onClick={handleClickLogo}>图书管理系统</div>
-                </Tooltip>
+            <Sider theme="light" collapsible collapsed={collapsed} onCollapse={changeCollapse}>
+                {
+                    !collapsed&&
+                    <Tooltip classNmae="menu-tip" placement="right" title={userStore.user ? '点击登出': '点击登录'}>
+                        <div className="menu-logo" onClick={handleClickLogo}>图书管理系统</div>
+                    </Tooltip>
+                }
                 <Menu />
             </Sider>
             <Layout className="site-layout">

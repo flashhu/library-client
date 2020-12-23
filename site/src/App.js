@@ -7,6 +7,7 @@ import GuardedRoute from '@component/GuardedRoute';
 import Layout from '@component/Layout';
 import { useUserStore } from '@hooks/useStore';
 
+const Home = lazy(() => import('@page/home'));
 const Search = lazy(() => import('@page/search'));
 const Return = lazy(() => import('@page/return'));
 const Borrow = lazy(() => import('@page/borrow'));
@@ -35,7 +36,9 @@ function App() {
           <Layout>
             <SuspenseWrapper>
               <Switch>
-                <Route path='/' exact component={Search} />
+                <Route path='/' exact component={Home} />
+                <Route path='/search' exact component={Search} />
+                <Route path='/search/:keyword' exact component={Search} />
                 <GuardedRoute path='/borrow' exact component={Borrow} auth={!!userStore.user} />
                 <GuardedRoute path='/return' exact component={Return} auth={!!userStore.user} />
                 <GuardedRoute path='/history/book' exact component={BookHistory} auth={!!userStore.user} />
