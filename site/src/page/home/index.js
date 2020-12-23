@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import ReactWordcloud from 'react-wordcloud';
 import logo from '@assets/img/logo.png'
 import { SERACH_OPTIONS } from '@constant/data'
-import { HOT_WORDS, HOT_BORROW, HOT_BOOK } from '@constant/mock'
+import { HOT_WORDS, HOT_BORROW, HOT_BOOK } from '@constant/mock/home'
 import './index.less'
 
 const { Search } = Input;
@@ -13,11 +13,11 @@ function Home() {
     const history = useHistory()
 
     const onSearch = (value) => {
-        history.push(`/search/${value}`)
+        history.push(`/search/${value ? '时间简史': ''}`)
     }
 
     return (
-        <div className="search">
+        <div className="home">
             <img className="logo" alt="logo" src={logo} />
             <Input.Group compact>
                 <Select style={{ width: 100 }} defaultValue={SERACH_OPTIONS[0].id || ''}>

@@ -49,3 +49,20 @@ export const SERACH_OPTIONS = [{
     id: 'searchNum',
     name: '索书号'
 }]
+
+export const COLLECT_LOCATION = [{
+    id: '0',
+    name: '不限馆藏地'
+}, {
+    id: '1',
+    name: '仓前校区'
+}, {
+    id: '2',
+    name: '下沙校区'
+}, {
+    id: '3',
+    name: '文一校区'
+}, {
+    id: '4',
+    name: '钱江学院'
+}]

@@ -1,0 +1,94 @@
+.search {
+    span[data-highlight="yes"] {
+        color: #d14!important;
+    }
+
+    .content-title {
+        margin-bottom: 15px;
+    }
+
+    .search-bar {
+        width: 50%;
+    }
+
+    .search-filter {
+        margin-bottom: 10px;
+    }
+
+    .result-summary {
+        margin-top: 15px;
+        color: #909090;
+    }
+
+    .search-result {
+        display: grid;
+        grid-template-columns: 1fr 1fr; // 分为3列
+    }
+
+    .result-item {
+        margin: 15px 0;
+        width: 95%;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 8px #f0f1f2;
+        transition: box-shadow 0.5s;
+
+        &:hover {
+            box-shadow: 0 5px 8px #dddddd;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 10px 12px;
+
+            & span {
+                font-weight: bold;
+                color: #4b4b4b;
+            }
+        }
+
+        & p {
+            margin-bottom: 5px;
+        }
+
+        .item-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+        }
+
+        .item-num {
+            color: #909090;
+            min-width: 78px;
+        }
+    }
+
+    .no-result {
+        display: flex;
+        justify-content: center;
+        height: 400px;
+        align-items: center;
+        color: #777;
+
+        & p {
+            text-align: center;
+            margin-top: 10px;
+        }
+    }
+
+    @media screen and (max-width: 800px){
+        .search-result {
+            grid-template-columns: 1fr; // 分为3列
+        }
+
+        .result-item {
+            width: 100%;
+        }
+
+        .search-bar {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+}

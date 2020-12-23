@@ -1,5 +1,6 @@
+import { useEffect } from 'react'
 import { observer } from 'mobx-react'
-import { Redirect, Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Form, Input, Button, Tooltip } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useUserStore } from '@hooks/useStore'
@@ -17,9 +18,14 @@ function Login() {
         history.push('/register')
     }
 
+    useEffect(() => {
+        if (userStore.user) {
+            history.goBack()
+        }
+    }, [userStore.user, history])
+
     return (
         <div className="login">
-            {userStore.user && <Redirect to="/" />}
             <div className="login-box">
                 <Link to="/">
                     <Tooltip placement="right" title="点击返回首页">

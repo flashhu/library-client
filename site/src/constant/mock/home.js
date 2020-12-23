@@ -1,4 +1,4 @@
-/* 馆藏检索页 */
+/* 馆藏检索-首页 */
 // 热门检索词 (来源：http://opac.hznu.edu.cn:8080/opac/top100_adv.php)
 export const HOT_WORDS = [
     { text: '盐', value: '384' },
@@ -113,7 +113,7 @@ export const HOT_BORROW = [
     '叫魂: 1768年中国妖术大恐慌',
     '葫芦兄弟',
     '杀死一只知更鸟: 纪念版'
-] 
+]
 
 // 热门图书 (来源：http://opac.hznu.edu.cn:8080/opac/search_adv.php#/index)
 export const HOT_BOOK = [

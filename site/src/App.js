@@ -5,19 +5,22 @@ import Login from '@page/login';
 import Register from '@page/register';
 import GuardedRoute from '@component/GuardedRoute';
 import Layout from '@component/Layout';
+import Loading from '@component/Loading';
 import { useUserStore } from '@hooks/useStore';
+import '@assets/global.less'
 
 const Home = lazy(() => import('@page/home'));
 const Search = lazy(() => import('@page/search'));
 const Return = lazy(() => import('@page/return'));
 const Borrow = lazy(() => import('@page/borrow'));
 const BookHistory = lazy(() => import('@page/bookHistory'));
+const BookDetail = lazy(() => import('@page/bookDetail'));
 const ReserveHistory = lazy(() => import('@page/reserveHistory'));
 const NotFound = lazy(() => import('@page/notFound'));
 
 const SuspenseWrapper = ({ children }) => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading/>}>
       {children}
     </Suspense>
   )
@@ -39,6 +42,7 @@ function App() {
                 <Route path='/' exact component={Home} />
                 <Route path='/search' exact component={Search} />
                 <Route path='/search/:keyword' exact component={Search} />
+                <Route path='/book/:isbn' exact component={BookDetail} />
                 <GuardedRoute path='/borrow' exact component={Borrow} auth={!!userStore.user} />
                 <GuardedRoute path='/return' exact component={Return} auth={!!userStore.user} />
                 <GuardedRoute path='/history/book' exact component={BookHistory} auth={!!userStore.user} />
