@@ -66,3 +66,37 @@ export const COLLECT_LOCATION = [{
     id: '4',
     name: '钱江学院'
 }]
+
+export const HISTORY_SERACH_OPTIONS = [{
+    id: 'any',
+    name: '任意词'
+}, {
+    id: 'title',
+    name: '题名'
+}, {
+    id: 'author',
+    name: '责任者'
+}, {
+    id: 'tags',
+    name: '书刊状态'
+}, {
+    id: 'bookId',
+    name: '条码号'
+}]
+
+export const RESERVE_SERACH_OPTIONS = [{
+    id: 'any',
+    name: '任意词'
+}, {
+    id: 'title',
+    name: '题名'
+}, {
+    id: 'author',
+    name: '责任者'
+}, {
+    id: 'tags',
+    name: '预约状态'
+}, {
+    id: 'bookId',
+    name: '条码号'
+}]
