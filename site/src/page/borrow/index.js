@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Tabs, message, Modal, Table, Descriptions } from 'antd'
-import { BORROW_DATA} from '@constant/mock/borrow'
+import { BORROW_DATA, BORROW_RENEW_DATA} from '@constant/mock/borrow'
 import CountDown from './component/CountDown'
 import BorrowStatusBg from './component/BorrowStatusBg'
 import  BorrowRenewStatusBg from './component/BorrowRenewStatusBg'
@@ -22,6 +22,24 @@ const columns = [{
     key: 'author'
 }, {
     title: '应还日期',
+    dataIndex: 'dateToReturn',
+    key: 'dateToReturn'
+}]
+
+const columns_renew = [{
+    title: '条码号',
+    dataIndex: 'bookId',
+    key: 'bookId'
+}, {
+    title: '书名',
+    dataIndex: 'title',
+    key: 'title'
+}, {
+    title: '作者',
+    dataIndex: 'author',
+    key: 'author'
+}, {
+    title: '续借应还日期',
     dataIndex: 'dateToReturn',
     key: 'dateToReturn'
 }]
@@ -78,7 +96,7 @@ function Borrow() {
     }
     // 无续借图书
     const handleOutRenew = () => {
-        message.success('没有检测到可续借图书')
+        message.warn('没有检测到可续借图书')
         setStatus(7);
     }
 
@@ -156,7 +174,7 @@ function Borrow() {
                                     <Descriptions title="用户信息">
                                         <Descriptions.Item label="姓名">李铁牛</Descriptions.Item>
                                         <Descriptions.Item label="学号">2018212212675</Descriptions.Item>
-                                        <Descriptions.Item label="可借数量">10</Descriptions.Item>
+                                        <Descriptions.Item label="可借数量">8</Descriptions.Item>
                                     </Descriptions>
                                 }
                                 {
@@ -164,6 +182,7 @@ function Borrow() {
                                     <>
                                         <CountDown handleFail={handleCancel} />
                                         <p>请将图书放到借阅机的感应区内 ...</p>
+                                        <p>机器默认处理放置图书的前10本 ...</p>
                                     </>
                                 }
                                 {
@@ -275,7 +294,7 @@ function Borrow() {
                                     <Descriptions title="用户信息">
                                         <Descriptions.Item label="姓名">李铁牛</Descriptions.Item>
                                         <Descriptions.Item label="学号">2018212212675</Descriptions.Item>
-                                        <Descriptions.Item label="可借数量">10</Descriptions.Item>
+                                        <Descriptions.Item label="可借数量">8</Descriptions.Item>
                                     </Descriptions>
                                 }
                                 {
@@ -283,6 +302,7 @@ function Borrow() {
                                     <>
                                         <CountDown handleFail={handleCancel} />
                                         <p>请将图书放到借阅机的感应区内 ...</p>
+                                        <p>机器默认处理放置图书的前10本 ...</p>
                                     </>
                                 }
                                 {
@@ -293,7 +313,7 @@ function Borrow() {
                                 }
                                 {
                                     status === 5 &&
-                                    <Table rowKey="id" columns={columns} dataSource={BORROW_DATA} />
+                                    <Table rowKey="id" columns={columns_renew} dataSource={BORROW_RENEW_DATA} />
                                 }
                                 {
                                     status === 7 &&
