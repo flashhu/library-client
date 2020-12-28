@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react'
+import './index.less'
 
 function CountDown({ handleFail }) {
     const [counter, setCounter] = useState(60);
 
     useEffect(() => {
-        counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+        let timeout;
+        if (counter > 0) {
+            timeout = setTimeout(() => setCounter(counter - 1), 1000);
+        }
         counter === 0 && handleFail()
+        return () => {
+            clearTimeout(timeout)
+        }
     }, [counter, handleFail]);
 
     return (
-        <div className="return-timer">{counter}</div>
+        <div className="timer">{counter}</div>
     )
 }
 

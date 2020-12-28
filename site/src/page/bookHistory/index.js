@@ -95,13 +95,14 @@ function BookHistory() {
         title: '操作',
         key: 'action',
         align: 'center',
+        width: 120,
         render: (text, record) => (
           <>
           {record.tags.map(tag => {
             if (tag === '借阅中') {
               return (
                 <Space size="middle">
-                    <a onClick={() => showModal_renew(record)}>续借</a>
+                  <span style={{ color: '#1890ff' }} onClick={() => showModal_renew(record)}>续借</span>
                 </Space>
               );
             }else {

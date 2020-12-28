@@ -20,7 +20,7 @@ function Login() {
 
     useEffect(() => {
         if (userStore.user) {
-            history.push('/')
+            history.goBack()
         }
     }, [userStore.user, history])
 

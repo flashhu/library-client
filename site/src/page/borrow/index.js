@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Tabs, message, Modal, Table, Descriptions } from 'antd'
 import { BORROW_DATA, BORROW_RENEW_DATA} from '@constant/mock/borrow'
-import CountDown from './component/CountDown'
+import CountDown from '@component/CountDown'
 import BorrowStatusBg from './component/BorrowStatusBg'
 import  BorrowRenewStatusBg from './component/BorrowRenewStatusBg'
 import './index.less'
@@ -106,7 +106,7 @@ function Borrow() {
     }
     // 借数之外
     const handleOutLimited = () => {
-        message.success('数量超过帐户可借数量');
+        message.warn('数量超过帐户可借数量');
         setStatus(7);
     }
 
@@ -116,7 +116,7 @@ function Borrow() {
     }
     // 未上架图书
     const handleOutCheck = () => {
-        message.success('包含未上架图书');
+        message.warn('包含未上架图书《时间简史》,该书暂不可借阅');
         setStatus(7);
     }
 
@@ -144,10 +144,10 @@ function Borrow() {
                         <div className="content-title">
                             
                             <div
-                                className={status === 0 ? "status-item" : "status-item active"}
+                                className={status === 1 ? "status-item active" : "status-item"}
                                 onClick={() => setStatus(status !== 0 ? 0 : 1)}
                             >
-                                借阅机{status === 0 ? "繁忙" : "空闲"}
+                                借阅机{status === 1 ? "空闲" : "繁忙"}
                             </div>
                         </div>
                         <div className="status-wrapper">

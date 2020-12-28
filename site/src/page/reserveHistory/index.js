@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Select, Input, Table, Tag, Space, DatePicker, Modal, message } from 'antd';
+import { Select, Input, Table, Tag, Space, DatePicker, Modal, message } from 'antd';
 import { RESERVE_SERACH_OPTIONS } from '@constant/data'
 import { RESERVE_RECORD_BEFORE, RESERVE_RECORD_AFTER } from '@constant/mock/reserve'
 import './index.less'
@@ -90,7 +90,7 @@ function ReserveHistory() {
                     if (tag === '待取书') {
                         return (
                             <Space size="middle">
-                                <a onClick={() => showModal(record)}>取消预约</a>
+                                <span style={{ color: '#1890ff' }} onClick={() => showModal(record)}>取消预约</span>
                             </Space>
                         );
                     }else {
@@ -107,11 +107,6 @@ function ReserveHistory() {
     ];
 
     const onSearch = value => console.log(value);
-
-    const cancelReserve = (val) => {
-        console.log('gggggg')
-
-    }
 
     return (
         <div>

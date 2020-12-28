@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { Table, Button, Tag, Tooltip, message, Modal, InputNumber } from 'antd';
 import { BOOK_SPARE_LIST, BOOK_FULL_LIST, BOOK_STATUS_TYPE } from '@constant/mock/search'
 import { useUserStore } from '@hooks/useStore';
-import { debounce } from '@util/debounce'
+// import { debounce } from '@util/debounce'
 
 function BookLocation({ isAvailable }) {
     const userStore = useUserStore();
@@ -56,6 +56,10 @@ function BookLocation({ isAvailable }) {
     ];
 
     const handleOk = () => {
+        if(!day) {
+            message.error('预约天数不能为空！');
+            return
+        }
         message.warn('正在预约中...');
         setConfirmLoading(true);
         setTimeout(() => {
@@ -80,17 +84,15 @@ function BookLocation({ isAvailable }) {
     };
 
     const handleNumChange = (val) => {
-        if (val > 0 && val < 9) {
-            setDay(val)
-        } else if (!val) {
-            message.error('预约保留天数不得为空');
-        } else {
+        console.log(val);
+        setDay(val)
+        if (val > 8) {
             message.error('预约保留天数不得大于八天，请重新输入');
         }
     }
 
     // 防止用户删数字时即触发错误提示
-    const debounceHandleNumChange = debounce(handleNumChange, 1000);
+    // const debounceHandleNumChange = debounce(handleNumChange, 1000);
 
     const reserveBook = (val) => {
         if (!userStore.user) {
@@ -113,7 +115,7 @@ function BookLocation({ isAvailable }) {
                 destroyOnClose
             >
                 <span>请输入预约保留天数：</span>
-                <InputNumber min={1} max={8} defaultValue={day} onChange={debounceHandleNumChange} />
+                <InputNumber min={1} max={8} defaultValue={day} onChange={handleNumChange} />
             </Modal>
         </>
     )

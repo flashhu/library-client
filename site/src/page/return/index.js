@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { message, Modal, Table } from 'antd'
 import { RETURN_BOOK_DATA } from '@constant/mock/return'
-import CountDown from './component/CountDown'
+import CountDown from '@component/CountDown'
 import ReturnStatusBg from './component/ReturnStatusBg'
 import './index.less'
 
@@ -37,6 +37,7 @@ function Return() {
 
     const handleCancel = () => {
         setIsModalVisible(false);
+        setStatus(1);
     };
 
     const handleIdentifyFailed = () => {
@@ -63,13 +64,16 @@ function Return() {
 
     const handleStartReturn = () => {
         setStatus(3);
+        setTimeout(() => {
+            handleReturn('T');
+        }, 1000);
     }
 
     const handleReturn = (type) => {
-        setStatus(1);
         handleCancel();
         type === 'T' && message.success('还书成功');
         type === 'F' && message.warn('逾期还书成功，已扣除校园卡余额 0.5 元');
+        setStatus(1);
     }
 
     return (
@@ -77,10 +81,10 @@ function Return() {
             <div className="content-title">
                 图书归还
                 <div
-                    className={status === 0 ? "status-item" : "status-item active"}
+                    className={status === 1 ? "status-item active" : "status-item"}
                     onClick={() => setStatus(status !== 0 ? 0 : 1)}
                 >
-                    借阅机{status === 0 ? "繁忙" : "空闲"}
+                    借阅机{status === 1 ? "空闲" : "繁忙"}
                 </div>
             </div>
             <div className="status-wrapper">
@@ -100,6 +104,7 @@ function Return() {
                         <>
                             <CountDown handleFail={handleCancel} />
                             <p>请将待还书籍放到借阅机的感应区内 ...</p>
+                            <p>机器默认处理放置图书的前10本 ...</p>
                         </>
                     }
                     {
@@ -127,13 +132,13 @@ function Return() {
                             <div onClick={handleStartReturn}>确认归还</div>
                         </>
                     }
-                    {
+                    {/* {
                         status === 3 &&
                         <>
                             <div onClick={() => handleReturn('T')}>期内归还</div>
                             <div onClick={() => handleReturn('F')}>逾期归还</div>
                         </>
-                    }
+                    } */}
                 </div>
             </Modal>
         </div>
