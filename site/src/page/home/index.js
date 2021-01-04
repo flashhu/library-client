@@ -13,7 +13,11 @@ function Home() {
     const history = useHistory()
 
     const onSearch = (value) => {
-        history.push(`/search/${value ? '时间简史': ''}`)
+        history.push(`/search/${value}`)
+    }
+
+    const callbacks = {
+        onWordClick: val => onSearch(val.text)
     }
 
     return (
@@ -30,13 +34,17 @@ function Home() {
             <div className="data-statistic">
                 <div className="data-card">
                     <div className="card-title hvr-sweep-to-right">热门检索</div>
-                    <ReactWordcloud style={{ height: 220, width: 228, marginTop: 5, paddingLeft: 15 }} words={HOT_WORDS} />
+                    <ReactWordcloud 
+                        callbacks={callbacks}
+                        style={{ height: 220, width: 228, marginTop: 5, paddingLeft: 15 }} 
+                        words={HOT_WORDS} 
+                    />
                 </div>
                 <div className="data-card">
                     <div className="card-title hvr-sweep-to-right">热门借阅</div>
                     <div className="card-content">
                         {HOT_BORROW.map((item, index)=>
-                            <div className="cont-item" key={`hbor${index}`}>{item}</div>
+                            <div className="cont-item" key={`hbor${index}`} onClick={() => onSearch(item)}>{item}</div>
                         )}
                     </div>
                 </div>
@@ -44,7 +52,7 @@ function Home() {
                     <div className="card-title hvr-sweep-to-right">热门图书</div>
                     <div className="card-content">
                         {HOT_BOOK.map((item, index) =>
-                            <div className="cont-item" key={`hbok${index}`}>{item}</div>
+                            <div className="cont-item" key={`hbok${index}`} onClick={() => onSearch(item)}>{item}</div>
                         )}
                     </div>
                 </div>

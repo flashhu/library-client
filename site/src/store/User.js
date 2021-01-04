@@ -25,7 +25,7 @@ class UserStore {
         if (data) {
             window.localStorage.setItem('token', data.token);
             runInAction(() => {
-                this.user = { data };
+                this.user = data.info;
             })
             message.success('登录成功');
         }
@@ -35,7 +35,7 @@ class UserStore {
         const data = await get(API_USER_TOKEN_LOGIN);
         if (data) {
             runInAction(() => {
-                this.user = data
+                this.user = data.info
             })
             message.success('登录成功');
         }

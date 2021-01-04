@@ -17,7 +17,7 @@ class RegisterValidator extends LinValidator {
         ]
         this.email = [
             new Rule('isOptional'),
-            new Rule('isEmail', '不符合Email规范')
+            new Rule('matches', '邮箱格式有误', /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/)
         ]
         this.passwd = [
             // 限定长度 包含特殊字符

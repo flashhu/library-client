@@ -152,9 +152,11 @@ function Register() {
                         <Input.Password placeholder="请输入密码" allowClear/>
                     </Form.Item>
                     <Form.Item
-                        label="手机号"
+                        label="手机"
                         name="phone"
                         rules={[{
+                            required: true, message: '手机号不可为空!'
+                        }, {
                             type: 'string', pattern: /^1[3-9]\d{9}$/, message: '手机号格式不合法!'
                         }]}
                     >
@@ -164,6 +166,8 @@ function Register() {
                         label="邮箱"
                         name="email"
                         rules={[{
+                            required: true, message: '邮箱不可为空!'
+                        }, {
                             type: 'email', message: '邮箱格式不合法!'
                         }]}
                     >

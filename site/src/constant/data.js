@@ -2,7 +2,8 @@ import {
     CloudDownloadOutlined,
     FileSearchOutlined,
     CloudUploadOutlined,
-    HistoryOutlined
+    HistoryOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 
 export const USER_MENU = [{
@@ -28,6 +29,10 @@ export const USER_MENU = [{
         name: '预约记录',
         path: '/history/reserve'
     }]
+}, {
+    name: '个人资料',
+    path: '/profile',
+    icon: <UserOutlined />
 }]
 
 export const SERACH_OPTIONS = [{

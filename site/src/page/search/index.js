@@ -10,17 +10,18 @@ import './index.less'
 const { Search } = Input;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
+const initialKeyWord = '时间简史';
 
 function SearchPage() {
     const { keyword } = useParams()
     const history = useHistory()
 
     const onSearch = (value) => {
-        history.push(`/search/${value ? '时间简史': ''}`)
+        history.push(`/search/${value}`)
     }
 
     useEffect(() => {
-        if (keyword) {
+        if (keyword === initialKeyWord) {
             const dom = document.getElementById('search-result');
             const pattern = hanldeKeyword(keyword);
             highlightKeyword(dom, pattern[0])
@@ -44,10 +45,10 @@ function SearchPage() {
                     )}
                 </Select>
                 <RangePicker picker="year" style={{ width: 200 }} />
-                <Search className="search-bar" defaultValue={keyword ? '时间简史': ''} placeholder="搜索图书..." onSearch={onSearch} enterButton />
+                <Search className="search-bar" defaultValue={keyword} placeholder="搜索图书..." onSearch={onSearch} enterButton />
             </Input.Group>
             {
-                keyword ? <>
+                keyword === initialKeyWord ? <>
                     <div className="result-summary">共检索到 {SEARCH_WORD_TIME.length} 条数据</div>
                     <div id="search-result" className="search-result">
                         {SEARCH_WORD_TIME.map((item, index) =>

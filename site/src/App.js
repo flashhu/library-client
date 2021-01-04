@@ -17,6 +17,7 @@ const BookHistory = lazy(() => import('@page/bookHistory'));
 const BookDetail = lazy(() => import('@page/bookDetail'));
 const ReserveHistory = lazy(() => import('@page/reserveHistory'));
 const NotFound = lazy(() => import('@page/notFound'));
+const Profile = lazy(() => import('@page/profile'));
 
 const SuspenseWrapper = ({ children }) => {
   return (
@@ -47,6 +48,7 @@ function App() {
                 <GuardedRoute path='/return' exact component={Return} auth={!!userStore.user} />
                 <GuardedRoute path='/history/book' exact component={BookHistory} auth={!!userStore.user} />
                 <GuardedRoute path='/history/reserve' exact component={ReserveHistory} auth={!!userStore.user} />
+                <GuardedRoute path='/profile' exact component={Profile} auth={!!userStore.user} />
                 <Route component={NotFound} />
               </Switch>
             </SuspenseWrapper>
